@@ -10,6 +10,9 @@ const {get, getAll, getAndFindAll} = require('../services/orderRequest/get')
 const { textValidation, nameValidation, phoneValidation, emailValidation, IDValidation } = require('../helper/validation');
 const { userMail , adminMail} = require('../helper/mailTemplate')
 const { syncMail} = require('../helper/mail')
+const ejs = require("ejs");
+const pdf = require("html-pdf");
+const path = require("path");
 
 
 // home page second section edit route.
@@ -61,7 +64,42 @@ router.post('/create',
                     })
                     // console.log(sendData.data);
                     let msg = await userMail(sendData.data)
-                    syncMail(sendData.data.email,"ACE GIFTING - Catalogue Request #"+sendData.data.id,msg)
+
+                    ejs.renderFile(path.join(__dirname, '../email/', "catalogue-template.ejs"), {data: sendData.data}, (err, data) => {
+                        if (err) {
+                            //   res.send(err);
+                              console.log(err);
+                        } else {
+                            let options = {
+                                "height": "11.25in",
+                                "width": "8.5in",
+                                "header": {
+                                    "height": "20mm"
+                                },
+                                "footer": {
+                                    "height": "20mm",
+                                },
+                            };
+                            pdf.create(data, options).toFile(path.join(__dirname, '../public/api/pdf/', "catalogue_"+sendData.data.id+".pdf"), function (err, data) {
+                                if (err) {
+                                    // res.send(err);
+                                    console.log(err);
+                                    syncMail(sendData.data.email,"ACE GIFTING - Catalogue Request #"+sendData.data.id,msg)
+                                } else {
+                                    console.log('done');
+                                    attachments= [
+                                        {   // file on disk as an attachment
+                                            filename: 'catalogue.pdf',
+                                            path: path.join(__dirname, '../public/api/pdf/', "catalogue_"+sendData.data.id+".pdf") // stream this file
+                                        },
+                                    ]
+                                    syncMail(sendData.data.email,"ACE GIFTING - Catalogue Request #"+sendData.data.id,msg,attachments)
+                                    // res.send("File created successfully");
+                                }
+                            });
+                        }
+                    });
+
                     let msgAdmin = await adminMail(sendData.data)
                     syncMail('info@acegiftingsolutions.com',"ACE GIFTING - Catalogue Request #"+sendData.data.id,msgAdmin)
                 }

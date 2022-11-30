@@ -1,17 +1,17 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize('ace_gifting', 'ace', 'giftingsolutions@123', {
-    host: 'localhost',
-    dialect: 'mysql',
-    logging: false, //sql query logging in console
-    pool: { max: 5, min: 0, idle: 10000 }
-})
-// const sequelize = new Sequelize('ace_gifting', 'root', '', {
+// const sequelize = new Sequelize('ace_gifting', 'ace', 'giftingsolutions@123', {
 //     host: 'localhost',
 //     dialect: 'mysql',
 //     logging: false, //sql query logging in console
 //     pool: { max: 5, min: 0, idle: 10000 }
 // })
+const sequelize = new Sequelize('ace_gifting', 'root', '', {
+    host: 'localhost',
+    dialect: 'mysql',
+    logging: false, //sql query logging in console
+    pool: { max: 5, min: 0, idle: 10000 }
+})
 
 // const sequelize = new Sequelize('a5inepro_ace_nuxt', 'a5inepro_ace_nuxt', 'Subham88676',{
 //     host:'162.251.85.215',

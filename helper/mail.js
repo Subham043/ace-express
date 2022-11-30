@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport(smtpTransport({
 }));
 
 module.exports={
-    syncMail: async (email,subject,message) => {
+    syncMail: async (email,subject,message,attachments=null) => {
         try{
             await transporter.sendMail({
                 from: {
@@ -25,7 +25,8 @@ module.exports={
                 },
                 to: email,
                 subject: subject,
-                html: message
+                html: message,
+                attachments:attachments
             })
         }catch(err) {console.error(err)}
     },
