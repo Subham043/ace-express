@@ -13,6 +13,12 @@
                 <img src="https://www.acegiftingsolutions.com/assets/images/logo.png" style="height: 70px; object-fit:contain" alt="">
             </td>
         </tr>
+        <tr style="width: 100%; text-align: left;">
+            <td> <br/>Email: info@acegiftingsolutions.com</td>
+        </tr>
+        <tr style="width: 100%; text-align: left;">
+            <td>Phone: +91 81510 56671</td>
+        </tr>
     </table>
     <br /><br />
     Dear <%= data.name %><br /><br />
@@ -21,26 +27,25 @@
     <table border="1" style="border-collapse: collapse;width:100%;">
     <thead>
     <tr>
+    <th style="border:1px solid #000;text-align: center;">Product</th>
     <th style="border:1px solid #000;text-align: center;">Name</th>
     <th style="border:1px solid #000;text-align: center;">Price</th>
-    <th style="border:1px solid #000;text-align: center;">Image</th>
     </tr>
     </thead>
     <tbody>
         <% if (data.orderRequestProducts.length > 0) { %>
             <% data.orderRequestProducts.forEach(item => {%>
                <tr>
-                <td style="border:1px solid #000;text-align: center;"><%= item.product.name %></td>
-                <td style="border:1px solid #000;text-align: center;"><%= item.product.price %></td>
                 <td style="border:1px solid #000;text-align: center;">
                     <img src="https://acegiftingsolutions.com/api/products/<%= item.product.image %>" style="height: 50px;object-fit: contain;" alt="">
                 </td>
+                <td style="border:1px solid #000;text-align: center;"><%= item.product.name %></td>
+                <td style="border:1px solid #000;text-align: center;"><%= item.product.price %></td>
             </tr>
             <%  });%>
         <% }%>
     </tbody>
     </table>
     <br /><br />
-    Ace Gifting Solutions
 </body>
 </html>

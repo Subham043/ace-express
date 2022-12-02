@@ -74,10 +74,12 @@ router.post('/create',
                                 "height": "11.25in",
                                 "width": "8.5in",
                                 "header": {
-                                    "height": "20mm"
+                                    "height": "20mm",
+                                    "contents": '<div style="width: 100%; height:20px;background-color:#02b8f4;position: fixed; top: 0;left: 0;"></div>'
                                 },
                                 "footer": {
                                     "height": "20mm",
+                                    "contents": '<div style="width: 100%; height:20px;background-color:#02b8f4;position: fixed; bottom: 0;left: 0;"></div>'
                                 },
                             };
                             pdf.create(data, options).toFile(path.join(__dirname, '../public/api/pdf/', "catalogue_"+sendData.data.id+".pdf"), function (err, data) {
